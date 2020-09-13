@@ -2,10 +2,7 @@
 /node_modules/
 
 #bot tokens
-.env
 setting.json
 
 #test file
-role.js
-help.js
 desktop.ini
