@@ -38,22 +38,23 @@ class msgEvent {
         const panele = new panel(client,json,roles)
         const rolee = new role(client,json,roles)
         const helpe = new help(client,json,roles)
+        const admine = new admin(client,json,roles)
 
         switch(command.toLowerCase()){
             case "panel" :
-                panele.panelCreate(message)
+                panele.panelCreate(message);
                 break;
 
             case "pa" :
-                panele.panelCreate(message)
+                panele.panelCreate(message);
                 break;
 
             case "an" :
-                rolee.roleAdd([command, ...args],message)
+                rolee.roleAdd([command, ...args],message);
                 break;
 
             case "help" :
-                helpe.help(message)
+                helpe.help(message);
                 break;
           }
     }
