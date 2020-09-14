@@ -39,7 +39,7 @@ class msgEvent {
         const rolee = new role(client,json,roles)
         const helpe = new help(client,json,roles)
 
-        switch(command){
+        switch(command.toLowerCase()){
             case "panel" :
                 panele.panelCreate(message)
                 break;
