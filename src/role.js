@@ -12,12 +12,9 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-9-13
+2020-9-14
 
 */
-
-const discord = require("discord.js");
-const client = new discord.Client();
 
 class role {
     constructor(client,json,roles) {
