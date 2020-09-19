@@ -12,7 +12,7 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-9-13
+2020-9-19
 
 */
 
@@ -29,7 +29,7 @@ class help {
         const json = this.json;
         const ROLES = this.roles;
 
-        var content = `**サーバー通知機能 使い方**\n\`/panel (省略形 /pa) \`で通知のオンオフを設定できるパネルを生成します。\nリアクションすることでオンオフできます。\n\`/an <サーバー名> on/off \`でもオンオフが設定できます。\n設定できるサーバー 一覧\n\`\`\``
+        var content = `**サーバー通知機能 使い方**\n\`${json.bot.prefix}panel (省略形 ${json.bot.prefix}pa) \`で通知のオンオフを設定できるパネルを生成します。\nリアクションすることでオンオフできます。\n\`${json.bot.prefix}an <サーバー名> on/off \`でもオンオフが設定できます。\n設定できるサーバー 一覧\n\`\`\``
         for(var i=0;i<ROLES.roles.length;i++){
             content = `${content}${ROLES.roles[i][0]}, `;
         }
