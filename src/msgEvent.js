@@ -12,7 +12,7 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-9-13
+2020-9-19
 
 */
 
@@ -38,7 +38,6 @@ class msgEvent {
         const panele = new panel(client,json,roles)
         const rolee = new role(client,json,roles)
         const helpe = new help(client,json,roles)
-        const admine = new admin(client,json,roles)
 
         switch(command.toLowerCase()){
             case "panel" :
