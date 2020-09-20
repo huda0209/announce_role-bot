@@ -3,10 +3,10 @@
 created by huda0209
 announce role bot for discord bot 
 
-main.js :MAIN  'MAIN CODE'　<= this
+main.js :MAIN  'MAIN CODE'
  -msgEvent.js :CLASS
  -panel.js  :CLASS
- -reactionEvent.js  :CLASS
+ -reactionEvent.js  :CLASS　<= this
  -role.js  :CLASS
  -help.js  :CLASS
  
@@ -31,40 +31,31 @@ class reactionEvent {
         const json = this.json;;
         const ROLES = this.roles;
 
+        let emoji = [];
+        for(let i=0; i<letter.length; i++){
+            emoji.push(letter[i][1])};
 
         if(messageReaction.message.author.id === client.user.id){
-            for(var i=0;i<36;i++){
-                if(messageReaction.emoji.name === letter[i][1]){
-                    const member = await client.guilds.cache.get(json.guild.GuildId).members.cache.get(user.id);
+            const Id = emoji.indexOf(messageReaction.emoji.name);
+            if(Id === -1) return;
+            const member = await client.guilds.cache.get(json.guild.GuildId).members.cache.get(user.id);
+            let userRoles = member.roles.member._roles;
+            if(userRoles.indexOf(ROLES.roles[Id][1]) === -1){
+                member.roles.add(ROLES.roles[Id][1]);
+                userRoles.push(ROLES.roles[Id][1]);
+            }else{
+                member.roles.remove(ROLES.roles[Id][1]);
+                delete userRoles[userRoles.indexOf(ROLES.roles[Id][1])]};
 
-                    var userRoles = member.roles.member._roles;
-                
-                    if(userRoles.indexOf(ROLES.roles[i][1]) === -1){
-                        member.roles.add(ROLES.roles[i][1]);
-                        userRoles.push(ROLES.roles[i][1]);
-                    }else{
-                        member.roles.remove(ROLES.roles[i][1]);
-                        delete userRoles[userRoles.indexOf(ROLES.roles[i][1])];
-                    }
-                    messageReaction.message.reactions.cache.get(letter[i][1]).users.remove(user.id);
-
-                    if(messageReaction.message.mentions.members.first().id === user.id){
-                        if(userRoles.indexOf(ROLES.roles[0][1])>-1){
-                            var result = 1;
-                        }else result = 0;
-                        const cnd = [" ","現在ON"];
-                        var text =(`<@${user.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n${letter[0][0]} : ${ROLES.roles[0][0]} ${cnd[result]}\n`);
-                        for(var I=1; I<ROLES.roles.length; I++){
-                            if(userRoles.indexOf(ROLES.roles[I][1])>-1){
-                                var result = 1;
-                            }else result = 0;
-                            text = (`${text}${letter[I][0]} : ${ROLES.roles[I][0]} ${cnd[result]}\n`);
-                        };
-                        messageReaction.message.edit(text);
-                    };
-                    break
+            messageReaction.message.reactions.cache.get(letter[Id][1]).users.remove(user.id);
+            if(messageReaction.message.mentions.members.first().id === user.id){
+                let text =(`<@${user.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n`);
+                for(let I=0; I<ROLES.roles.length; I++){
+                    let result = userRoles.indexOf(ROLES.roles[I][1])>-1 ? "現在on" :"";
+                    text = (`${text}${letter[I][0]} : ${ROLES.roles[I][0]} ${result}\n`);
                 };
-            }
+                messageReaction.message.edit(text);
+            };
         }
     }
 }
