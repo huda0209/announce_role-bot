@@ -32,21 +32,11 @@ class panelEvent {
         const ROLES = this.roles
 
         const userRoles = message.member.roles.member._roles;
-        const cnd = [" ","現在ON"]
-
         const msg = await message.channel.send("生成中...")
-        if(userRoles.indexOf(ROLES.roles[0][1])>-1){
-            var result = 1
-        }else result = 0
-
-        var text =(`<@${message.author.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n${letter[0][0]} : ${ROLES.roles[0][0]} ${cnd[result]}\n`);
-        msg.react(letter[0][1]);
-
-        for(var i=1; i<ROLES.roles.length; i++){
-            if(userRoles.indexOf(ROLES.roles[i][1])>-1){
-                var result = 1
-            }else result = 0
-            text = (`${text}${letter[i][0]} : ${ROLES.roles[i][0]} ${cnd[result]}\n`);
+        var text =(`<@${message.author.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n`);
+        for(var i=0; i<ROLES.roles.length; i++){
+            let result = userRoles.indexOf(ROLES.roles[i][1])>-1 ? "現在on" :"";
+            text = (`${text}${letter[i][0]} : ${ROLES.roles[i][0]} ${result}\n`);
             msg.react(letter[i][1]);
         };
         msg.edit(text);
