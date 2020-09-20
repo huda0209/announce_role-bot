@@ -12,7 +12,7 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-9-19
+2020-9-20
 
 */
 
@@ -25,7 +25,7 @@ const msgEvent = require('./src/msgEvent.js');
 const reactionEvent = require('./src/reactionEvent.js');
 
 //other 
-var json = JSON.parse(fs.readFileSync('./config/setting.json','utf8'));
+let json = JSON.parse(fs.readFileSync('./config/setting.json','utf8'));
 const roles = JSON.parse(fs.readFileSync('./config/roles.json','utf8'));
 const package = require('./package.json')
 const client = new discord.Client({restTimeOffset: 10});
@@ -35,7 +35,7 @@ const prefix = json.bot.prefix;
 
 //start the bot
 client.on("ready", message => {
-  console.log(`bot is ready! ver. ${json.bot.version} \nlogin: ${client.user.tag}`);
+  console.log(`bot is ready! ver. ${package.version} \nlogin: ${client.user.tag}`);
   client.user.setActivity(`${prefix}helpでヘルプを表示 ver. ${package.version}`, { type: 'PLAYING' });
 });
 
@@ -56,13 +56,11 @@ client.on("guildCreate", bot =>{
 client.on("message", async message => {
   if (message.content.startsWith(prefix)){
     const [command, ...args] = message.content.slice(prefix.length).split(' ');
-    if(command === "stop"){
-      if(message.author.id === message.guild.ownerID || json.guild.Admin.indexOf(message.author.id)>-1){
+    if(command === "stop" &&(message.author.id === message.guild.ownerID || json.guild.Admin.indexOf(message.author.id)>-1)){
         console.log(`server was stoped by ${message.author.tag}`);
         await message.delete();
         client.destroy();
-        process.exit(0);};
-    };
+        process.exit(0)};
     const msge = new msgEvent(client,message,json);
     msge.msgEvent([command, ...args],roles);
     
@@ -84,7 +82,7 @@ client.on("message", async message => {
               message.channel.send(`コマンドが違います。`);
               break;
       };
-  };
+    };
   };
 })
 
@@ -99,7 +97,7 @@ if(json.bot.MAIN_TOKEN == undefined || json.bot.MAIN_TOKEN == ""){
   console.log("please set setting.json : MAIN_TOKEN");
   process.exit(0);
 }
-var token;
+let token;
 if(process.argv.length>=3){
   switch(process.argv[2]){
     case "main" :
@@ -111,6 +109,7 @@ if(process.argv.length>=3){
         process.exit(0);
       }
       token = json.bot.TEST_TOKEN;
+      package.version = `dev(${package.version})`
       break;
     default :
       console.log(`\nUnknown command. \nUsage \n node main.js main : use main token \n node main.js test : use test token`);
