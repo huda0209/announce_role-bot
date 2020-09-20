@@ -3,16 +3,16 @@
 created by huda0209
 announce role bot for discord bot 
 
-main.js :MAIN  'MAIN CODE'　<= this
+main.js :MAIN  'MAIN CODE'
  -msgEvent.js :CLASS
  -panel.js  :CLASS
  -reactionEvent.js  :CLASS
- -role.js  :CLASS
+ -role.js  :CLASS　<= this
  -help.js  :CLASS
  
 ran by node.js
 
-2020-9-14
+2020-9-20
 
 */
 
@@ -30,11 +30,11 @@ class role {
 
         var serverList = []
         for(var i=0;i<ROLES.roles.length;i++){
-              serverList.push(ROLES.roles[i][0]);
-        }
+              serverList.push(ROLES.roles[i][0])};
 
         if(args.length === 2){
             const serverId = serverList.indexOf(args[0].toLowerCase());
+            if(serverId === -1) return message.channel.send(`<@${message.author.id}>\n使い方 : /an <サーバー名> on/off`);
             switch(args[1].toLowerCase()){
                 case "on" :
                     message.member.roles.add(ROLES.roles[serverId][1]);
