@@ -12,7 +12,7 @@ main.js :MAIN  'MAIN CODE'
  
 ran by node.js
 
-2020-9-14
+2020-9-22
 
 */
 
@@ -37,7 +37,7 @@ class reactionEvent {
 
         if(messageReaction.message.author.id === client.user.id){
             const Id = emoji.indexOf(messageReaction.emoji.name);
-            if(Id === -1) return;
+            if(Id === -1 && Id < ROLES.roles.length) return;
             const member = await client.guilds.cache.get(json.guild.GuildId).members.cache.get(user.id);
             let userRoles = member.roles.member._roles;
             if(userRoles.indexOf(ROLES.roles[Id][1]) === -1){
