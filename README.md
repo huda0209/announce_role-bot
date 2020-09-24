@@ -26,17 +26,22 @@
 - Read Message History
 - Add Reactions
 
-8. `/help`をサーバーで実行し、正常に動作しているか確認(エラーが出た場合は下記連絡先まで)
+8. `/help`をサーバーで実行し、正常に動作しているか確認(エラーが出た場合は作者まで)
 
 
 ## その他設定
-- prefix変更 configディレクトリ内のsetting.jsonの`prefix`を任意の記号に変更
-- アナウンスロール追加 configディレクトリ内のroles.jsonにサーバー側で設定した付与したいロールを上記初期設定の5番を参考に追加
-- アナウンスロール削除 configディレクトリ内のroles.jsonで削除したいロールの配列を削除
-(これより上の設定はファイル保存後再起動が必要)
-
-- adminユーザーを追加　サーバの任意のチャンネルで、`admin add <追加したいユーザーをメンション>`と実行
-- adminユーザーを削除　サーバの任意のチャンネルで、`admin remove <削除したいユーザーをメンション>`と実行
+- prefix変更<br>
+configディレクトリ内のsetting.jsonの`prefix`を任意の記号に変更
+- アナウンスロール追加<br>
+configディレクトリ内のroles.jsonにサーバー側で設定した付与したいロールを上記初期設定の5番を参考に追加
+- アナウンスロール削除<br>
+configディレクトリ内のroles.jsonで削除したいロールの配列を削除<br>
+(これより上の設定はファイル保存後再起動が必要)<br>
+<br>
+- adminユーザーを追加<br>
+サーバの任意のチャンネルで、`admin add <追加したいユーザーをメンション>`と実行
+- adminユーザーを削除<br>
+サーバの任意のチャンネルで、`admin remove <削除したいユーザーをメンション>`と実行
 
 
 ## コマンド一覧
@@ -44,6 +49,13 @@
 - `an <ロールの名前> on/off` ロールの名前に該当するロールを付与(on)か、削除(off)
 - `help` ヘルプを表示します
 - `admin` adminを追加、削除(その他設定を参考)
+
+## discord api仕様変更について
+discord apiの仕様変更により、2020年10月7日より特権とマークされた情報へのアクセスが制限されます。<br>
+それに伴い、特権へのアクセスに申請(機能をオン)しないと起動時にエラーが出ます。<br>
+必ず[Developer Portal](https://discord.com/developers/applications)からPrivileged Intentsを有効化してください。<br>
+![discord-div-Privileged_Intents.png](https://github.com/huda0209/resource/blob/master/discord-bot-template/discord-div-Privileged_Intents.png)<br>
+赤枠内のチェックボタンをオンにする<br>
 
 
 ## 作成者
