@@ -69,15 +69,19 @@ client.on("message", async message => {
     if(command.toLowerCase() === "admin" &&(message.author.id === message.guild.ownerID || guildData.guild.Admin.indexOf(message.author.id)>-1)){
       switch(args[0].toLowerCase()){
           case "add" :
+              if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)>=0) return message.channel.send(`そのユーザーは追加済みです`);
               guildData.guild.Admin.push(message.mentions.members.first().id);
               fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-              console.log(`${color.header.info}Add admin ${message.mentions.members.first()}`);
+              console.log(`${color.header.info}Add admin ${message.mentions.members.first().user.tag}`);
+              message.channel.send(`ユーザーを追加しました`);
               break;
 
           case "remove" :
-              delete guildData.guild.Admin[json.guild.Admin.indexOf(message.mentions.members.first().id)];
+              if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)==-1) return message.channel.send(`そのユーザーはリストに入っていません`);
+              delete guildData.guild.Admin[guildData.guild.Admin.indexOf(message.mentions.members.first().id)];
               fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-              console.log(`${color.header.info}Remove admin ${message.mentions.members.first()}`);
+              console.log(`${color.header.info}Remove admin ${message.mentions.members.first().user.tag}`);
+              message.channel.send(`ユーザーを削除しました`);
               break;
 
           default :
