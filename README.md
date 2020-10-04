@@ -7,7 +7,7 @@
 2. discord bot のトークンを取得(botはサーバーにまだ招待しないように)
 3. `npm install`を実行
 4. configディレクトリ内のsetting.jsonの`MAIN_TOKEN`にトークンを設定
-5. configディレクトリ内のroles.jsonにサーバー側で設定した付与したいロールを以下の要領で列挙
+5. config/guildディレクトリ内guild.jsonのrolesにサーバー側で設定した付与したいロールを以下の要領で列挙
 ```
 {
     "roles" :[
@@ -38,6 +38,7 @@ configディレクトリ内のroles.jsonにサーバー側で設定した付与�
 configディレクトリ内のroles.jsonで削除したいロールの配列を削除<br>
 (これより上の設定はファイル保存後再起動が必要)<br>
 <br>
+
 - adminユーザーを追加<br>
 サーバの任意のチャンネルで、`admin add <追加したいユーザーをメンション>`と実行
 - adminユーザーを削除<br>
