@@ -12,7 +12,7 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-9-13
+2020-10-4
 
 */
 
@@ -29,14 +29,14 @@ class panelEvent {
     async panelCreate (message){
         const client = this.client;
         const json = this.json;
-        const ROLES = this.roles
+        const ROLES = this.roles;
 
         const userRoles = message.member.roles.member._roles;
         const msg = await message.channel.send("生成中...")
         var text =(`<@${message.author.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n`);
-        for(var i=0; i<ROLES.roles.length; i++){
-            let result = userRoles.indexOf(ROLES.roles[i][1])>-1 ? "現在on" :"";
-            text = (`${text}${letter[i][0]} : ${ROLES.roles[i][0]} ${result}\n`);
+        for(var i=0; i<ROLES.length; i++){
+            let result = userRoles.indexOf(ROLES[i][1])>-1 ? "現在on" :"";
+            text = (`${text}${letter[i][0]} : ${ROLES[i][0]} ${result}\n`);
             msg.react(letter[i][1]);
         };
         msg.edit(text);

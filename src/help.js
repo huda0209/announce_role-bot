@@ -12,29 +12,31 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-9-19
+2020-10-4
 
 */
 
 
 class help {
-    constructor(client,json,roles) {
+    constructor(client,json,roles,BOT_DATA) {
         this.client = client;
         this.json = json;
         this.roles = roles;
+        this.BOT_DATA = BOT_DATA;
     }
 
     async help (message){
         const client = this.client;
         const json = this.json;
         const ROLES = this.roles;
+        const BOT_DATA = this.BOT_DATA;
 
-        var content = `**サーバー通知機能 使い方**\n\`${json.bot.prefix}panel (省略形 ${json.bot.prefix}pa) \`で通知のオンオフを設定できるパネルを生成します。\nリアクションすることでオンオフできます。\n\`${json.bot.prefix}an <サーバー名> on/off \`でもオンオフが設定できます。\n設定できるサーバー 一覧\n\`\`\``
-        for(var i=0;i<ROLES.roles.length;i++){
-            content = `${content}${ROLES.roles[i][0]}, `;
+        let content = `**サーバー通知機能 使い方**\n\`${BOT_DATA.PREFIX}panel (省略形 ${BOT_DATA.PREFIX}pa) \`で通知のオンオフを設定できるパネルを生成します。\nリアクションすることでオンオフできます。\n\`${BOT_DATA.PREFIX}an <サーバー名> on/off \`でもオンオフが設定できます。\n設定できるサーバー 一覧\n\`\`\``
+        for(let i=0;i<ROLES.length;i++){
+            content = `${content}${ROLES[i][0]}, `;
         }
-        content = `${content}\`\`\``
-        message.channel.send(content)
+        content = `${content}\`\`\``;
+        message.channel.send(content);
     }
 }
 
