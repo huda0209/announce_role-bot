@@ -47,6 +47,7 @@ client.on("guildCreate", bot =>{
   const adddata ={
               "GuildId" : bot.id,
               "Owner" : bot.ownerID,
+              "Admin" : []
              };
   guildData.guild = adddata;
   fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
