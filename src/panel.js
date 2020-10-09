@@ -3,16 +3,17 @@
 created by huda0209
 announce role bot for discord bot 
 
-main.js :MAIN  'MAIN CODE'　<= this
+main.js :MAIN  'MAIN CODE'
  -msgEvent.js :CLASS
- -panel.js  :CLASS
+ -panel.js  :CLASS　<= this
  -reactionEvent.js  :CLASS
  -role.js  :CLASS
  -help.js  :CLASS
+ -admin.js  :CLASS
  
 ran by node.js
 
-2020-10-4
+2020-10-10
 
 */
 
@@ -20,23 +21,13 @@ const letter = [[":zero:","0⃣"],[":one:","1⃣"],[":two:","2⃣"],[":three:","
 
 
 class panelEvent {
-    constructor(client,json,roles) {
-        this.client = client;
-        this.json = json;
-        this.roles = roles;
-    }
 
-    async panelCreate (message){
-        const client = this.client;
-        const json = this.json;
-        const ROLES = this.roles;
-
-        const userRoles = message.member.roles.member._roles;
+    async panelCreate (message,GuildData){
         const msg = await message.channel.send("生成中...")
         var text =(`<@${message.author.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n`);
-        for(var i=0; i<ROLES.length; i++){
-            let result = userRoles.indexOf(ROLES[i][1])>-1 ? "現在on" :"";
-            text = (`${text}${letter[i][0]} : ${ROLES[i][0]} ${result}\n`);
+        for(var i=0; i<GuildData.roles.length; i++){
+            let result = message.member.roles.member._roles.indexOf(GuildData.roles[i][1])>-1 ? "現在on" :"";
+            text = (`${text}${letter[i][0]} : ${GuildData.roles[i][0]} ${result}\n`);
             msg.react(letter[i][1]);
         };
         msg.edit(text);

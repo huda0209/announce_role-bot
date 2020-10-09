@@ -9,47 +9,43 @@ main.js :MAIN  'MAIN CODE'
  -reactionEvent.js  :CLASS
  -role.js  :CLASS　<= this
  -help.js  :CLASS
+ -admin.js  :CLASS
  
 ran by node.js
 
-2020-10-4
+2020-10-10
 
 */
 
 class role {
-    constructor(client,json,roles) {
+    constructor(client) {
         this.client = client;
-        this.json = json;
-        this.roles = roles;
     }
 
-    async roleAdd ([command, ...args],message){
-        const client = this.client;
-        const json = this.json;
-        const ROLES = this.roles;
+    async roleAdd ([command, ...args],message,guildData,BOT_DATA){
 
-        var serverList = []
-        for(var i=0;i<ROLES.length;i++){
-              serverList.push(ROLES[i][0])};
+        var roleList = []
+        for(var i=0;i<guildData.roles.length;i++){
+              roleList.push(guildData.roles[i][0])};
 
         if(args.length === 2){
-            const serverId = serverList.indexOf(args[0].toLowerCase());
-            if(serverId === -1) return message.channel.send(`<@${message.author.id}>\n使い方 : /an <サーバー名> on/off`);
+            const roleId = roleList.indexOf(args[0].toLowerCase());
+            if(roleId === -1) return message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <サーバー名> on/off`);
             switch(args[1].toLowerCase()){
                 case "on" :
-                    message.member.roles.add(ROLES[serverId][1]);
-                    message.channel.send(`<@${message.author.id}>\n${ROLES[serverId][0]}をONにしました。`);
+                    message.member.roles.add(guildData.roles[roleId][1]);
+                    message.channel.send(`<@${message.author.id}>\n${guildData.roles[roleId][0]}をONにしました。`);
                     break;
                 
                 case "off" :
-                    message.member.roles.remove(ROLES[serverId][1]);
-                    message.channel.send(`<@${message.author.id}>\n${ROLES[serverId][0]}をOFFにしました。`);
+                    message.member.roles.remove(guildData.roles[roleId][1]);
+                    message.channel.send(`<@${message.author.id}>\n${guildData.roles[roleId][0]}をOFFにしました。`);
                     break;
 
                 default : 
-                    message.channel.send(`<@${message.author.id}>\n使い方 : /an <サーバー名> on/off`);
+                    message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <サーバー名> on/off`);
             };
-        }else message.channel.send(`<@${message.author.id}>\n使い方 : /an <サーバー名> on/off`);
+        }else message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <サーバー名> on/off`);
     };
 }
 
