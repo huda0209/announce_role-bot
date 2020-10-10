@@ -32,12 +32,12 @@ const BOT_DATA = JSON.parse(fs.readFileSync('./config/setting.json','utf8'));
 //other 
 const option = {ws: {intents: discord.Intents.ALL}, restTimeOffset: 10};
 const client = new discord.Client(option);
-const color = require('./src/util/color');
+const logger = require('./src/util/logger')
 
 
 //start the bot
 client.on("ready", message => {
-  console.log(`${color.header.info}bot is ready! ver. ${BOT_DATA.VERSION} \n        login: ${color.chcol.cyan}${client.user.tag}${color.reset}\n`);
+  logger.info(`bot is ready! ver. ${BOT_DATA.VERSION} \n        login: {cyan}${client.user.tag}\n`);
   client.user.setActivity(`${BOT_DATA.PREFIX}helpでヘルプを表示 ver. ${BOT_DATA.VERSION}`, { type: 'PLAYING' });
 });
 
@@ -49,7 +49,7 @@ client.on("guildCreate", bot =>{
               "Admin" : []
              };
   fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-  console.log(`${color.header.info}guildCreate catch`);
+  logger.info(`guildCreate catch`);
   })
 
 //message event
@@ -57,7 +57,7 @@ client.on("message", async message => {
   if (message.content.startsWith(BOT_DATA.PREFIX)){
     const [command, ...args] = message.content.slice(BOT_DATA.PREFIX.length).split(' ');
     if(command === "stop" &&(message.author.id === message.guild.ownerID || guildData.guild.Admin.indexOf(message.author.id)>-1)){
-        console.log(`${color.header.info}server was stoped by ${color.chcol.cyan}${message.author.tag}${color.reset}`);
+        logger.info(`server was stoped by {cyan}${message.author.tag}`);
         await message.delete();
         client.destroy();
         process.exit(0)};
@@ -73,7 +73,13 @@ client.on("messageReactionAdd", async(messageReaction ,user) =>{
 
 
 if(BOT_DATA.MAIN_TOKEN == undefined || BOT_DATA.MAIN_TOKEN == ""){
-  console.log(`${color.header.error}please set setting.json : ${color.chcol.cyan}MAIN_TOKEN${color.reset}`);
+  logger.error(`please set setting.json : {cyan}MAIN_TOKEN`);
+  process.exit(0)};
+if(BOT_DATA.PREFIX == undefined || BOT_DATA.PREFIX == ""){
+  logger.error(`please set setting.json : {cyan}PREFIX`);
+  process.exit(0)};
+if(BOT_DATA.VERSION == undefined || BOT_DATA.VERSION == ""){
+  logger.error(`please set setting.json : {cyan}VERSION`);
   process.exit(0)};
 let token;
 if(process.argv.length>=3){
@@ -83,13 +89,13 @@ if(process.argv.length>=3){
       break;
     case "div" :
       if(BOT_DATA.DIV_TOKEN == undefined || BOT_DATA.DIV_TOKEN == ""){
-        console.log(`${color.header.error}please set setting.json : ${color.chcol.cyan}DIV_TOKEN${color.reset}`);
+        logger.error(`please set setting.json : {cyan}DIV_TOKEN`);
         process.exit(0)};
       token = BOT_DATA.DIV_TOKEN;
       BOT_DATA.VERSION = `dev(${BOT_DATA.VERSION})`;
       break;
     default :
-      console.log(`${color.header.error}Unknown command. \n${color.chcol.cyan}Usage${color.reset} \n node main.js main : use main token \n node main.js div : use divelopment token`);
+      logger.error(`Unknown command. \nUsage \n node main.js main : use main token \n node main.js div : use divelopment token`);
       process.exit(0);
   };
 }else token = BOT_DATA.MAIN_TOKEN;

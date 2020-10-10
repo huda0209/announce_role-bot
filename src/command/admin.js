@@ -18,7 +18,7 @@ ran by node.js
 */
 
 const fs = require('fs');
-const color = require('../util/color.js')
+const logger = require('../util/logger.js')
 
 
 const adminManager = async function ([command, ...args],message,guildData,client){
@@ -28,7 +28,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)>=0) return message.channel.send(`そのユーザーは追加済みです`);
             guildData.guild.Admin.push(message.mentions.members.first().id);
             fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-            console.log(`${color.header.info}Add admin ${message.mentions.members.first().user.tag}`);
+            logger.info(`Add admin {green}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを追加しました`);
             break;
 
@@ -36,7 +36,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)==-1) return message.channel.send(`そのユーザーはリストに入っていません`);
             delete guildData.guild.Admin[guildData.guild.Admin.indexOf(message.mentions.members.first().id)];
             fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-            console.log(`${color.header.info}Remove admin ${message.mentions.members.first().user.tag}`);
+            logger.info(`Remove admin {red}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを削除しました`);
             break;
 
