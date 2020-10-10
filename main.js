@@ -68,8 +68,7 @@ client.on("message", async message => {
 
 client.on("messageReactionAdd", async(messageReaction ,user) =>{
   if(user.bot) return;
-  const reactionEvente = new reactionEvent(client);
-  reactionEvente.addrole(messageReaction,user,guildData);
+  reactionEvent.roleManeger(messageReaction,user,guildData,client);
 })    
 
 
