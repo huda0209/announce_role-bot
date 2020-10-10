@@ -4,12 +4,12 @@ created by huda0209
 announce role bot for discord bot 
 
 main.js :MAIN  'MAIN CODE'　<= this
- -msgEvent.js :CLASS
- -panel.js  :CLASS
- -reactionEvent.js  :CLASS
- -role.js  :CLASS
- -help.js  :CLASS
- -admin.js  :CLASS
+ -command-handler.js :module
+ -panel.js  :module
+ -reactionEvent.js  :module
+ -announceRole.js  :module
+ -help.js  :module
+ -admin.js  :module
  
 ran by node.js
 
@@ -22,7 +22,7 @@ const fs = require('fs');
 const discord = require("discord.js");
 
 //class
-const msgEvent = require('./src/msgEvent.js');
+const commandHandler = require('./src/command-handler.js');
 const reactionEvent = require('./src/reactionEvent.js');
 
 //config
@@ -32,7 +32,7 @@ const BOT_DATA = JSON.parse(fs.readFileSync('./config/setting.json','utf8'));
 //other 
 const option = {ws: {intents: discord.Intents.ALL}, restTimeOffset: 10};
 const client = new discord.Client(option);
-const color = require('./src/color');
+const color = require('./src/util/color');
 
 
 //start the bot
@@ -61,8 +61,7 @@ client.on("message", async message => {
         await message.delete();
         client.destroy();
         process.exit(0)};
-    const msge = new msgEvent(client);
-    msge.msgEvent([command, ...args],message,guildData,BOT_DATA);
+    commandHandler.commandHandler([command, ...args],message,guildData,BOT_DATA,client);
     
   };
 })
@@ -76,8 +75,7 @@ client.on("messageReactionAdd", async(messageReaction ,user) =>{
 
 if(BOT_DATA.MAIN_TOKEN == undefined || BOT_DATA.MAIN_TOKEN == ""){
   console.log(`${color.header.error}please set setting.json : ${color.chcol.cyan}MAIN_TOKEN${color.reset}`);
-  process.exit(0);
-}
+  process.exit(0)};
 let token;
 if(process.argv.length>=3){
   switch(process.argv[2]){
