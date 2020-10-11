@@ -95,7 +95,7 @@ if(process.argv.length>=3){
       BOT_DATA.VERSION = `dev(${BOT_DATA.VERSION})`;
       break;
     default :
-      logger.error(`Unknown command. \nUsage \n node main.js main : use main token \n node main.js div : use divelopment token`);
+      logger.error(`Unknown command. \nUsage \n {green}node main.js main{reset} : use main token \n {green}node main.js div{reset} : use divelopment token`);
       process.exit(0);
   };
 }else token = BOT_DATA.MAIN_TOKEN;
