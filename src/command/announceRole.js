@@ -13,7 +13,7 @@ main.js :MAIN  'MAIN CODE'
  
 ran by node.js
 
-2020-10-10
+2020-10-24
 
 */
 
@@ -35,8 +35,10 @@ const announceRole_Manager = async function ([command, ...args],message,guildDat
                 message.member.roles.remove(guildData.roles[roleId][1]);
                 message.channel.send(`<@${message.author.id}>\n${guildData.roles[roleId][0]}をOFFにしました。`);
                 break;
+            
             default : 
                 message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <${guildData.content.command_alias}名> on/off`);
+                break;
         };
     }else message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <${guildData.content.command_alias}名> on/off`);
 };
