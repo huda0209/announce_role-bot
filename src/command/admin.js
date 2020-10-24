@@ -22,7 +22,7 @@ const logger = require('../util/logger.js')
 
 
 const adminManager = async function ([command, ...args],message,guildData,client){
-    switch(args[0].toLowerCase()){
+    switch(args[1].toLowerCase()){
         case "add" :
             if(args.length<2) return message.channel.send(`コマンドの引数が足りません。`);
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)>=0) return message.channel.send(`そのユーザーは追加済みです`);
@@ -43,11 +43,10 @@ const adminManager = async function ([command, ...args],message,guildData,client
             break;
 
         case "list" :
-            let adminList = `**${message.guild.name} Adminリスト**\nOwner : *${(await client.users.fetch(message.guild.ownerID)).tag}*\nAdmin :`;
+            let adminList = `**announce role bot  Adminリスト**\nOwner : *${(await client.users.fetch(message.guild.ownerID)).tag}*\nAdmin :`;
             if(guildData.guild.Admin.length<1){
                 adminList = `${adminList} なし`;
             }
-            console.log(client.users.fetch(guildData.guild.Admin[0]))
             for(let i=0;i<guildData.guild.Admin.length;i++){
                 adminList = `${adminList}\n*${(await client.users.fetch(guildData.guild.Admin[i])).tag}*`;
             };
