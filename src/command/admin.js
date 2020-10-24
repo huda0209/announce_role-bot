@@ -35,6 +35,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
         case "remove" :
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)==-1) return message.channel.send(`そのユーザーはリストに入っていません`);
             delete guildData.guild.Admin[guildData.guild.Admin.indexOf(message.mentions.members.first().id)];
+            guildData.guild.Admin = guildData.guild.Admin.filter(Boolean);
             fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
             logger.info(`Remove admin {red}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを削除しました`);
