@@ -39,11 +39,24 @@ const commandHandler = async function ([command, ...args],message,guildData,BOT_
         case "help" :
             help.help(message,guildData,BOT_DATA);
             break;
-        case "admin" :
+        case "arb" :
             if(!(message.author.id === message.guild.ownerID || guildData.guild.Admin.indexOf(message.author.id)>-1)) break;
-            admin.adminManager([command, ...args],message,guildData,client)
+            arb_command_handler([command, ...args],message,guildData,BOT_DATA,client)
             break;
       }
+}
+
+function arb_command_handler([command, ...args],message,guildData,BOT_DATA,client){
+    
+    switch(args[0].toLowerCase()){
+        case "admin" :
+            admin.adminManager([command, ...args],message,guildData,client)
+            break;
+        
+        default :
+            message.channel.send('不明なコマンドです。')
+            break;
+    };
 }
 
 exports.commandHandler = commandHandler
