@@ -24,7 +24,7 @@ const announceRole_Manager = async function ([command, ...args],message,guildDat
           roleList.push(guildData.roles[i][0])};
     if(args.length === 2){
         const roleId = roleList.indexOf(args[0].toLowerCase());
-        if(roleId === -1) return message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <サーバー名> on/off`);
+        if(roleId === -1) return message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <${guildData.content.command_alias}名> on/off`);
         switch(args[1].toLowerCase()){
             case "on" :
                 message.member.roles.add(guildData.roles[roleId][1]);
@@ -36,9 +36,9 @@ const announceRole_Manager = async function ([command, ...args],message,guildDat
                 message.channel.send(`<@${message.author.id}>\n${guildData.roles[roleId][0]}をOFFにしました。`);
                 break;
             default : 
-                message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <サーバー名> on/off`);
+                message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <${guildData.content.command_alias}名> on/off`);
         };
-    }else message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <サーバー名> on/off`);
+    }else message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <${guildData.content.command_alias}名> on/off`);
 };
 
 exports.announceRole_Manager = announceRole_Manager

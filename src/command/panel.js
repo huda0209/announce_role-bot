@@ -22,7 +22,7 @@ const letter = [[":zero:","0⃣"],[":one:","1⃣"],[":two:","2⃣"],[":three:","
 
 const panelCreate = async function (message,GuildData){
     const msg = await message.channel.send("生成中...")
-    let text =(`<@${message.author.id}>\n**サーバー通知機能**\nリアクションを押すことでサーバーの通知を受け取るか選択できます。\n`);
+    let text =(`<@${message.author.id}>\n**${GuildData.content.function_name}**\n${GuildData.content.panel_content}\n`);
     for(let i=0; i<GuildData.roles.length; i++){
         let result = message.member.roles.member._roles.indexOf(GuildData.roles[i][1])>-1 ? "現在on" :"";
         text = (`${text}${letter[i][0]} : ${GuildData.roles[i][0]} ${result}\n`);
