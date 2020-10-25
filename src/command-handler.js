@@ -20,7 +20,8 @@ ran by node.js
 const panel = require('./command/panel.js');
 const announceRole = require('./command/announceRole.js');
 const help = require('./command/help.js');
-const admin = require('./command/admin.js')
+const admin = require('./command/admin.js');
+const arm = require('./command/announce_role_Manager')
 
 
 
@@ -52,6 +53,10 @@ function arb_command_handler([command, ...args],message,guildData,BOT_DATA,clien
         case "admin" :
             admin.adminManager([command, ...args],message,guildData,client)
             break;
+        
+        case "role" :
+            arm.arm_command_handler([command, ...args],message,guildData,BOT_DATA,client)
+            break; 
         
         default :
             message.channel.send('不明なコマンドです。')
