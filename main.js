@@ -13,7 +13,7 @@ main.js :MAIN  'MAIN CODE'　<= this
  
 ran by node.js
 
-2020-10-24
+2020-10-25
 
 */
 
@@ -57,7 +57,7 @@ client.on("guildCreate", bot =>{
 client.on("message", async message => {
   if (message.content.startsWith(BOT_DATA.PREFIX)){
     const [command, ...args] = message.content.slice(BOT_DATA.PREFIX.length).split(' ');
-    if(command === "stop" &&(message.author.id === message.guild.ownerID || guildData.guild.Admin.indexOf(message.author.id)>-1)){
+    if(command.toLowerCase() === "stop" &&(message.author.id === message.guild.ownerID || guildData.guild.Admin.indexOf(message.author.id)>-1)){
         logger.info(`server was stoped by {cyan}${message.author.tag}`);
         await message.delete();
         client.destroy();
@@ -70,7 +70,18 @@ client.on("message", async message => {
 client.on("messageReactionAdd", async(messageReaction ,user) =>{
   if(user.bot) return;
   reactionEvent.roleManeger(messageReaction,user,guildData,client);
-})    
+})
+
+exports.configReload = function(cmd,newguildData){
+  switch(cmd.toLowerCase()){
+    case "get" :
+      guildData = require('./config/guild/guild.json');
+      break;
+    case "set" :
+      guildData = newguildData;
+      break;
+  };
+}
 
 
 configChecker.check(BOT_DATA);
