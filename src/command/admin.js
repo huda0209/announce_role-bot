@@ -13,12 +13,13 @@ main.js :MAIN  'MAIN CODE'
  
 ran by node.js
 
-2020-10-24
+2020-10-25
 
 */
 
 const fs = require('fs');
 const logger = require('../util/logger.js')
+const main = require('../../main');
 
 
 const adminManager = async function ([command, ...args],message,guildData,client){
@@ -28,6 +29,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)>=0) return message.channel.send(`そのユーザーは追加済みです`);
             guildData.guild.Admin.push(message.mentions.members.first().id);
             fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
+            main.configReload("get");
             logger.info(`Add admin {green}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを追加しました`);
             break;
@@ -38,6 +40,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             delete guildData.guild.Admin[guildData.guild.Admin.indexOf(message.mentions.members.first().id)];
             guildData.guild.Admin = guildData.guild.Admin.filter(Boolean);
             fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
+            main.configReload("get");
             logger.info(`Remove admin {red}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを削除しました`);
             break;
