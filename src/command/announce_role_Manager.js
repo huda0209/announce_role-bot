@@ -30,7 +30,7 @@ const arm_command_handler = function([command, ...args],message,guildData,BOT_DA
     if(!isColorCode(color)) return message.channel.send("カラーコードが不正です。");
 
     if(args[1] == "add") role_Create(message,guildData,role_name,color);
-    if(args[1] == "delete") role_Delete(message,guildData,role_name);
+    if(args[1] == "delete" || args[1] == "del") role_Delete(message,guildData,role_name);
 }
 
 const role_Create = async function(message,guildData,role_name,color){
