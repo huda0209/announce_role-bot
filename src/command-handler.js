@@ -23,6 +23,7 @@ const announceRole = require('./command/announceRole.js');
 const help = require('./command/help.js');
 const admin = require('./command/admin.js');
 const arm = require('./command/announce_role_Manager')
+const main = require('../main')
 
 
 
@@ -58,6 +59,10 @@ function arb_command_handler([command, ...args],message,guildData,BOT_DATA,clien
         case "role" :
             arm.arm_command_handler([command, ...args],message,guildData,BOT_DATA,client)
             break; 
+
+        case "reload" :
+            main.configReload("get");
+            break;
         
         default :
             message.channel.send('不明なコマンドです。')
