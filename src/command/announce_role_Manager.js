@@ -3,14 +3,14 @@
 created by huda0209
 announce role bot for discord bot 
 
-main.js :MAIN  'MAIN CODE'　<= this
+main.js :MAIN  'MAIN CODE'
  -command-handler.js :module
  -panel.js  :module
  -reactionEvent.js  :module
  -announceRole.js  :module
  -help.js  :module
  -admin.js  :module
- -announce_role_Manager.js  :module
+ -announce_role_Manager.js  :module　<= this
  
 ran by node.js
 
@@ -47,7 +47,7 @@ const role_Create = async function(message,guildData,role_name,color){
     guildData.roles.push([role_name , role.id]);
     fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
     main.configReload("get");
-    message.channel.send(`${role.name}を作成しました。`)
+    message.channel.send(`${role.name}を作成しました。`);
     logger.info(`created new role {green}${role.name}`);
 }
 
@@ -57,31 +57,25 @@ const role_Delete = async function(message,guildData,role_name){
         roleList.push(guildData.roles[i][0]);
     };
     const roleId = roleList.indexOf(role_name);
-    if(roleId == -1) return message.channel.send(`指定されたロールはありません。`)
+    if(roleId == -1) return message.channel.send(`指定されたロールはありません。`);
     await (await message.guild.roles.fetch(guildData.roles[roleId][1])).delete();
     delete guildData.roles[roleId];
     guildData.roles = guildData.roles.filter(Boolean);
     fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
     main.configReload("get");
-    message.channel.send(`${role_name}を削除しました。`)
-    logger.info(`deleted role {red}${role_name}`)
+    message.channel.send(`${role_name}を削除しました。`);
+    logger.info(`deleted role {red}${role_name}`);
 }
 
 function isColorCode(colorCode){
     colorCode = colorCode.toLowerCase();
-    if (colorCode.length !=3 && colorCode.length !=6) {
-        return false;
-    }
-    if (isNaN(parseInt(colorCode, 16))) {
-        return false;
-    }
+    if (colorCode.length !=3 && colorCode.length !=6) return false;
+    if (isNaN(parseInt(colorCode, 16))) return false;
     let hex = parseInt(colorCode, 16).toString(16).toLowerCase();
-    while(hex.length < colorCode.length) {
+    while(hex.length < colorCode.length){
         hex = "0" + hex;
-    }
-    if (hex != colorCode) {
-        return false;
-    }
+    };
+    if (hex != colorCode) return false;
     return true;
 }
 
