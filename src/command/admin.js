@@ -10,10 +10,11 @@ main.js :MAIN  'MAIN CODE'
  -announceRole.js  :module
  -help.js  :module
  -admin.js  :module　<= this
+ -announce_role_Manager.js  :module
  
 ran by node.js
 
-2020-10-25
+2020-10-27
 
 */
 

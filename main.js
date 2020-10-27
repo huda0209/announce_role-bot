@@ -10,10 +10,11 @@ main.js :MAIN  'MAIN CODE'　<= this
  -announceRole.js  :module
  -help.js  :module
  -admin.js  :module
+ -announce_role_Manager.js  :module
  
 ran by node.js
 
-2020-10-25
+2020-10-27
 
 */
 
@@ -63,7 +64,6 @@ client.on("message", async message => {
         client.destroy();
         process.exit(0)};
     commandHandler.commandHandler([command, ...args],message,guildData,BOT_DATA,client);
-
   };
 })
 

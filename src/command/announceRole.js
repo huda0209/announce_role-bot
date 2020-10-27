@@ -10,10 +10,11 @@ main.js :MAIN  'MAIN CODE'
  -announceRole.js  :module　<= this
  -help.js  :module
  -admin.js  :module
+ -announce_role_Manager.js  :module
  
 ran by node.js
 
-2020-10-24
+2020-10-27
 
 */
 
@@ -22,7 +23,7 @@ const announceRole_Manager = async function ([command, ...args],message,guildDat
     let roleList = []
     for(let i=0;i<guildData.roles.length;i++){
           roleList.push(guildData.roles[i][0])};
-    if(args.length === 2){
+    if(args.length == 2){
         const roleId = roleList.indexOf(args[0].toLowerCase());
         if(roleId === -1) return message.channel.send(`<@${message.author.id}>\n使い方 : ${BOT_DATA.PREFIX}an <${guildData.content.command_alias}名> on/off`);
         switch(args[1].toLowerCase()){
