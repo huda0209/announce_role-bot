@@ -25,7 +25,7 @@
 サーバの任意のチャンネルで、`arb role delete <ロールの名前> `と実行<br>
 ロールを削除します。
 - configを直接編集<br>
-config/guildディレクトリ内guild.jsonのrolesにサーバー側で設定した付与したいロールを以下の要領で列挙
+config/guildディレクトリ内guild.jsonのrolesにサーバー側で設定した付与したいロールを以下の要領で列挙。**設定後再起動またはリロード必須**。
 ```json
 {
     "roles" :[
@@ -38,10 +38,10 @@ config/guildディレクトリ内guild.jsonのrolesにサーバー側で設定�
 - prefix変更<br>
 configディレクトリ内のsetting.jsonの`prefix`を任意の記号に変更
 - アナウンスロール追加<br>
-configディレクトリ内のroles.jsonにサーバー側で設定した付与したいロールを上記初期設定の5番を参考に追加
+configディレクトリ内のroles.jsonにサーバー側で設定した付与したいロールを`ロールの追加、削除 - configを直接編集`を参考に追加
 - アナウンスロール削除<br>
 configディレクトリ内のroles.jsonで削除したいロールの配列を削除<br>
-(これより上の設定はファイル保存後再起動、またはdiscordで`arb reload`が必要)<br>
+(**これより上の設定はファイル保存後再起動、またはdiscordで`arb reload`が必要**)<br>
 <br>
 
 - adminユーザーを追加<br>
