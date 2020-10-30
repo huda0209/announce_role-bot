@@ -19,12 +19,12 @@ ran by node.js
 */
 
 const fs = require('fs');
-const logger =require('../util/logger');
-const main = require('../../main');
+const logger =require('../../util/logger');
+const main = require('../../../main');
 
 const arm_command_handler = function([command, ...args],message,guildData,BOT_DATA,client){
     const role_name = args[2];
-
+    logger.debug(args.length)
     const color = args[3] == undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
     if(role_name == undefined) return message.channel.send("引数が足りません。");
     if(!isColorCode(color)) return message.channel.send("カラーコードが不正です。");

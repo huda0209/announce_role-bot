@@ -19,8 +19,8 @@ ran by node.js
 */
 
 const fs = require('fs');
-const logger = require('../util/logger.js')
-const main = require('../../main');
+const logger =require('../../util/logger');
+const main = require('../../../main');
 
 
 const adminManager = async function ([command, ...args],message,guildData,client){

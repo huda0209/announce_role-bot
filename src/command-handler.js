@@ -21,8 +21,8 @@ const logger = require('./util/logger')
 const panel = require('./command/panel.js');
 const announceRole = require('./command/announceRole.js');
 const help = require('./command/help.js');
-const admin = require('./command/admin.js');
-const arm = require('./command/announce_role_Manager')
+const admin = require('./command/admin/admin.js');
+const arm = require('./command/admin/announce_role_Manager')
 const main = require('../main')
 
 
