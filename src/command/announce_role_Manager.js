@@ -24,13 +24,24 @@ const main = require('../../main');
 
 const arm_command_handler = function([command, ...args],message,guildData,BOT_DATA,client){
     const role_name = args[2];
-    const color = args[3].startsWith('#') ? args[3].slice(1) : args[3];
 
+    const color = args[3] == undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
     if(role_name == undefined) return message.channel.send("引数が足りません。");
     if(!isColorCode(color)) return message.channel.send("カラーコードが不正です。");
 
-    if(args[1] == "add") role_Create(message,guildData,role_name,color);
-    if(args[1] == "delete" || args[1] == "del") role_Delete(message,guildData,role_name);
+    switch(args[1].toLowerCase()){
+        case "add" :
+            role_Create(message,guildData,role_name,color);
+            break;
+
+        case "delete" :
+        case "del" :
+            role_Delete(message,guildData,role_name);
+            break;
+
+        default :
+            message.channel.send("不明なコマンドです。")
+    }
 }
 
 const role_Create = async function(message,guildData,role_name,color){
