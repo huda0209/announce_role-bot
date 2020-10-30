@@ -3,19 +3,18 @@
 
 
 ## 初期設定
-1. 機能を使いたいサーバーで、アナウンス用(ユーザーに付与したい)のロールを設定
-2. discord bot のトークンを取得(botはサーバーにまだ招待しないように)
-3. `npm install`を実行
-4. configディレクトリ内のsetting.jsonの`MAIN_TOKEN`にトークンを設定
-5. `node main`を実行
-6. botに以下の権限を設定して招待する
+1. discord bot のトークンを取得(botはサーバーにまだ招待しないように)
+2. `npm install`を実行
+3. configディレクトリ内のsetting.jsonの`MAIN_TOKEN`にトークンを設定
+4. `node main`を実行
+5. botに以下の権限を設定して招待する
 - Manege Roles 
 - View Channel
 - Manege Messages
 - Read Message History
 - Add Reactions
 
-7. `/help`をサーバーで実行し、正常に動作しているか確認(エラーが出た場合は作者まで)
+6. `/help`をサーバーで実行し、正常に動作しているか確認(エラーが出た場合は作者まで)
 
 ## ロールの追加・削除
 - ロールを追加<br>
@@ -29,8 +28,7 @@ config/guildディレクトリ内guild.jsonのrolesにサーバー側で設定�
 ```json
 {
     "roles" :[
-            [" ロールの名前(英数字) "," ロールのid "],["sample","123456789"],["ex","987654321"]
-    ]      
+            [" ロールの名前(英数字) "," ロールのid "],["sample","123456789"],["ex","987654321"]]      
 }
 ```
 
