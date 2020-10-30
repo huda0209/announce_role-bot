@@ -53,7 +53,7 @@ const role_Create = async function(message,guildData,role_name,color){
             color : colorId
         }
     });
-    const position = guildData.role.length == 0 ? 1 : ((await message.guild.roles.fetch(guildData.roles[guildData.roles.length-1][1])).position - 1);
+    const position = guildData.roles.length == 0 ? 1 : ((await message.guild.roles.fetch(guildData.roles[guildData.roles.length-1][1])).position - 1);
     await (await message.guild.roles.fetch(role.id)).setPosition(position);
     guildData.roles.push([role_name , role.id]);
     fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
