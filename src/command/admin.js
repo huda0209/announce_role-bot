@@ -36,6 +36,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             break;
 
         case "delete" :
+        case "del" :
             if(args.length<2) return message.channel.send(`コマンドの引数が足りません。`);
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)==-1) return message.channel.send(`そのユーザーはリストに入っていません`);
             delete guildData.guild.Admin[guildData.guild.Admin.indexOf(message.mentions.members.first().id)];

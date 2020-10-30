@@ -17,7 +17,7 @@ ran by node.js
 2020-10-27
 
 */
-
+const logger = require('./util/logger')
 const panel = require('./command/panel.js');
 const announceRole = require('./command/announceRole.js');
 const help = require('./command/help.js');
@@ -31,8 +31,6 @@ const commandHandler = async function ([command, ...args],message,guildData,BOT_
 
     switch(command.toLowerCase()){
         case "panel" :
-            panel.panelCreate(message,guildData);
-            break;
         case "pa" :
             panel.panelCreate(message,guildData);
             break;
@@ -62,6 +60,8 @@ function arb_command_handler([command, ...args],message,guildData,BOT_DATA,clien
 
         case "reload" :
             main.configReload("get");
+            logger.info("config reloaded");
+            message.channel.send("コンフィグを再読み込みしました。");
             break;
         
         default :
