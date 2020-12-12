@@ -63,6 +63,12 @@ function arb_command_handler([command, ...args],message,guildData,BOT_DATA,clien
             logger.info("config reloaded");
             message.channel.send("コンフィグを再読み込みしました。");
             break;
+
+        case "stop" :
+            logger.info(`server was stoped by {cyan}${message.author.tag}`);
+			await message.delete();
+			client.destroy();
+			process.exit(0)
         
         default :
             message.channel.send('不明なコマンドです。')
