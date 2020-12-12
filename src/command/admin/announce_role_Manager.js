@@ -93,7 +93,7 @@ function isColorCode(colorCode) {
 
 function getEmoji(message,emojiTxt){
 	if(emojiTxt == undefined) return null;
-	if(emojiTxt < 10) return null; 
+	if(emojiTxt.length < 10) return null; 
 	//twimojiは常に2文字になる(みたい) 独自絵文字はidで18字あるので10以下なら誤作動はないはず
 	let emojiId = emojiTxt.slice(emojiTxt.length-19, emojiTxt.length-1);
 	
