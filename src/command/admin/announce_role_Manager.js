@@ -28,7 +28,7 @@ const arm_command_handler = function ([command, ...args], message, guildData, BO
 
 	switch (args[1].toLowerCase()) {
 		case "add":
-			role_Create(message, guildData, role_name, color);
+			role_Create(message, guildData, role_name);
 			break;
 
 		case "delete":
@@ -41,7 +41,7 @@ const arm_command_handler = function ([command, ...args], message, guildData, BO
 	}
 }
 
-const role_Create = async function (message, guildData, role_name, color) {
+const role_Create = async function (message, guildData, role_name) {
 	const color = args[3]==undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
 	if (!isColorCode(color)) return message.channel.send("カラーコードが不正です。");
 
