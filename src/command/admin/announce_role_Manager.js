@@ -28,7 +28,7 @@ const arm_command_handler = function ([command, ...args], message, guildData, BO
 
 	switch (args[1].toLowerCase()) {
 		case "add":
-			role_Create(message, guildData, role_name);
+			role_Create(message, guildData, role_name, [command, ...args]);
 			break;
 
 		case "delete":
@@ -41,9 +41,11 @@ const arm_command_handler = function ([command, ...args], message, guildData, BO
 	}
 }
 
-const role_Create = async function (message, guildData, role_name) {
-	const color = args[3]==undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
-	if (!isColorCode(color)) return message.channel.send("カラーコードが不正です。");
+const role_Create = async function (message, guildData, role_name, [command, ...args]) {
+	const colorId = args[3]==undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
+	if (!isColorCode(colorId)) return message.channel.send("カラーコードが不正です。");
+
+	const EmojiID = getEmoji(message,args[4])
 
 	const role = await message.guild.roles.create({
 		data: {
@@ -54,7 +56,7 @@ const role_Create = async function (message, guildData, role_name) {
 	});
 	const position = guildData.roles.length==0 ? 1 : ((await message.guild.roles.fetch(guildData.roles[guildData.roles.length - 1][1])).position-1);
 	await (await message.guild.roles.fetch(role.id)).setPosition(position);
-	guildData.roles.push([role_name, role.id]);
+	guildData.roles.push([role_name, role.id, EmojiID]);
 	fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"), 'utf8');
 	main.configReload("get");
 	message.channel.send(`${role.name}を作成しました。`);
@@ -89,5 +91,20 @@ function isColorCode(colorCode) {
 	return true;
 }
 
+function getEmoji(message,emojiTxt){
+	if(emojiTxt == undefined) return null;
+	if(emojiTxt < 10) return null; 
+	//twimojiは常に2文字になる(みたい) 独自絵文字はidで18字あるので10以下なら誤作動はないはず
+	let emojiId = emojiTxt.slice(emojiTxt.length-19, emojiTxt.length-1);
+	
+	const emojiDataArray = message.guild.emojis.cache.array();
+	let emojiArray= [];
+	for(let i=0;i<emojiDataArray.length;i++){
+		emojiArray.push(emojiDataArray[i].id);
+	}
+
+	if(emojiArray.indexOf(emojiId)==-1) return null;
+	return emojiId;
+}
 
 exports.arm_command_handler = arm_command_handler
