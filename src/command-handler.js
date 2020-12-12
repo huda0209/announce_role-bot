@@ -47,7 +47,7 @@ const commandHandler = async function ([command, ...args],message,guildData,BOT_
       }
 }
 
-function arb_command_handler([command, ...args],message,guildData,BOT_DATA,client){
+async function arb_command_handler([command, ...args],message,guildData,BOT_DATA,client){
     
     switch(args[0].toLowerCase()){
         case "admin" :
