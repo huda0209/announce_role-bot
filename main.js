@@ -26,15 +26,15 @@ const discord = require("discord.js");
 const commandHandler = require('./src/command-handler.js');
 const reactionEvent = require('./src/reactionEvent.js');
 
-//config
-let guildData = JSON.parse(fs.readFileSync('./config/guild/guild.json', 'utf8'));
-const BOT_DATA = JSON.parse(fs.readFileSync('./config/setting.json', 'utf8'));
-
 //other 
 const option = { ws: { intents: discord.Intents.ALL }, restTimeOffset: 10 };
 const client = new discord.Client(option);
 const logger = require('./src/util/logger');
 const configChecker = require('./src/util/config');
+
+//config
+let guildData = configChecker.getConfig()
+const BOT_DATA = configChecker.getBotData()
 
 
 //start the bot
@@ -48,6 +48,7 @@ client.on("guildCreate", bot => {
 	guildData.guild = {
 		"GuildId": bot.id,
 		"Owner": bot.ownerID,
+		"AdminRole" : [],
 		"Admin": []
 	};
 	fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"), 'utf8');
@@ -78,8 +79,6 @@ exports.configReload = function (cmd, newguildData) {
 	};
 }
 
-
-configChecker.check(BOT_DATA);
 let token;
 if (process.argv.length >= 3) {
 	switch (process.argv[2]) {
