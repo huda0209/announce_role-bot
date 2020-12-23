@@ -22,7 +22,7 @@ const fs = require('fs');
 const logger = require('../../util/logger');
 const main = require('../../../main');
 
-function arm_command_handler ([command, ...args], message, guildData, BOT_DATA, client) {
+function arm_command_handler ([command, ...args], message, guildData, BOT_DATA, client){
 	const role_name = args[2];
 	if (role_name == undefined) return message.channel.send("引数が足りません。");
 
@@ -37,7 +37,7 @@ function arm_command_handler ([command, ...args], message, guildData, BOT_DATA, 
 			break;
 
 		default:
-			message.channel.send("不明なコマンドです。")
+			message.channel.send("不明なコマンドです。");
 	}
 }
 
@@ -46,13 +46,13 @@ async function role_Create (message, guildData, role_name, [command, ...args]) {
 	if (!isColorCode(colorId)) return message.channel.send("カラーコードが不正です。");
 
 	let roleList = [];
-	for(let i=0; i<guildData.roles.length; i++) {
+	for(let i=0; i<guildData.roles.length; i++){
 		roleList.push(guildData.roles[i][0]);
 	};
 	const roleIndex = roleList.indexOf(role_name);
 	if (roleIndex > -1) return message.channel.send(`その名前のロールは既にあります。`);
 
-	const EmojiID = getEmoji(message,args[4])
+	const EmojiID = getEmoji(message,args[4]);
 
 	const role = await message.guild.roles.create({
 		data: {
@@ -70,7 +70,7 @@ async function role_Create (message, guildData, role_name, [command, ...args]) {
 	logger.info(`created new role {green}${role.name}`);
 }
 
-async function role_Delete (message, guildData, role_name) {
+async function role_Delete (message, guildData, role_name){
 	let roleList = [];
 	for(let i=0; i<guildData.roles.length; i++) {
 		roleList.push(guildData.roles[i][0]);
@@ -86,7 +86,7 @@ async function role_Delete (message, guildData, role_name) {
 	logger.info(`deleted role {red}${role_name}`);
 }
 
-function isColorCode(colorCode) {
+function isColorCode (colorCode){
 	colorCode = colorCode.toLowerCase();
 	if (colorCode.length != 3 && colorCode.length != 6) return false;
 	if (isNaN(parseInt(colorCode, 16))) return false;
@@ -98,7 +98,7 @@ function isColorCode(colorCode) {
 	return true;
 }
 
-function getEmoji(message,emojiTxt){
+function getEmoji (message,emojiTxt){
 	if(emojiTxt == undefined) return null;
 	if(emojiTxt.length < 19) return null; 
 	//twimojiは常に2文字になる(みたい) 独自絵文字はidで18字あるので19以下なら誤作動はないはず
