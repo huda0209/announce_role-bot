@@ -45,6 +45,13 @@ const role_Create = async function (message, guildData, role_name, [command, ...
 	const colorId = args[3]==undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
 	if (!isColorCode(colorId)) return message.channel.send("カラーコードが不正です。");
 
+	let roleList = [];
+	for(let i=0; i<guildData.roles.length; i++) {
+		roleList.push(guildData.roles[i][0]);
+	};
+	const roleIndex = roleList.indexOf(role_name);
+	if (roleIndex > -1) return message.channel.send(`その名前のロールは既にあります。`);
+
 	const EmojiID = getEmoji(message,args[4])
 
 	const role = await message.guild.roles.create({
@@ -65,13 +72,13 @@ const role_Create = async function (message, guildData, role_name, [command, ...
 
 const role_Delete = async function (message, guildData, role_name) {
 	let roleList = [];
-	for (let i = 0; i < guildData.roles.length; i++) {
+	for(let i=0; i<guildData.roles.length; i++) {
 		roleList.push(guildData.roles[i][0]);
 	};
-	const roleId = roleList.indexOf(role_name);
-	if (roleId == -1) return message.channel.send(`指定されたロールはありません。`);
-	await (await message.guild.roles.fetch(guildData.roles[roleId][1])).delete();
-	delete guildData.roles[roleId];
+	const roleIndex = roleList.indexOf(role_name);
+	if (roleIndex == -1) return message.channel.send(`指定されたロールはありません。`);
+	await (await message.guild.roles.fetch(guildData.roles[roleIndex][1])).delete();
+	delete guildData.roles[roleIndex];
 	guildData.roles = guildData.roles.filter(Boolean);
 	fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"), 'utf8');
 	main.configReload("get");
