@@ -22,7 +22,7 @@ const fs = require('fs');
 const logger = require('../../util/logger');
 const main = require('../../../main');
 
-const arm_command_handler = function ([command, ...args], message, guildData, BOT_DATA, client) {
+function arm_command_handler ([command, ...args], message, guildData, BOT_DATA, client) {
 	const role_name = args[2];
 	if (role_name == undefined) return message.channel.send("引数が足りません。");
 
@@ -41,7 +41,7 @@ const arm_command_handler = function ([command, ...args], message, guildData, BO
 	}
 }
 
-const role_Create = async function (message, guildData, role_name, [command, ...args]) {
+async function role_Create (message, guildData, role_name, [command, ...args]) {
 	const colorId = args[3]==undefined ? "000000" : args[3].startsWith('#') ? args[3].slice(1) : args[3];
 	if (!isColorCode(colorId)) return message.channel.send("カラーコードが不正です。");
 
@@ -70,7 +70,7 @@ const role_Create = async function (message, guildData, role_name, [command, ...
 	logger.info(`created new role {green}${role.name}`);
 }
 
-const role_Delete = async function (message, guildData, role_name) {
+async function role_Delete (message, guildData, role_name) {
 	let roleList = [];
 	for(let i=0; i<guildData.roles.length; i++) {
 		roleList.push(guildData.roles[i][0]);
