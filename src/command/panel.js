@@ -27,7 +27,7 @@ const panelCreate = async function (message,GuildData){
     const msg = await message.channel.send("生成中...");
     let text =(`<@${message.author.id}>\n**${GuildData.content.function_name}**\n${GuildData.content.panel_content}\n`);
 
-    const roleList = roleEmoji.roleEmojiSet(message,GuildData);
+    const roleList = roleEmoji.roleEmojiSet(message.guild, GuildData);
 
     for(let i=0; i<GuildData.roles.length; i++){
         let result = message.member.roles.member._roles.indexOf(GuildData.roles[i][1])>-1 ? "現在on" :"";
