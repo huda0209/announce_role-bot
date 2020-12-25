@@ -11,16 +11,16 @@ main.js :MAIN  'MAIN CODE'
  -help.js  :module
  -admin.js  :module　<= this
  -announce_role_Manager.js  :module
+ -roleEmoji.js  :module
  
 ran by node.js
 
-2020-10-27
+2020-12-25
 
 */
 
 const fs = require('fs');
 const logger =require('../../util/logger');
-const main = require('../../../main');
 
 
 const adminManager = async function ([command, ...args],message,guildData,client){
@@ -29,8 +29,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             if(args.length<2) return message.channel.send(`コマンドの引数が足りません。`);
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)>=0) return message.channel.send(`そのユーザーは追加済みです`);
             guildData.guild.Admin.push(message.mentions.members.first().id);
-            fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-            main.configReload("get");
+            fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8')
             logger.info(`Add admin {green}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを追加しました`);
             break;
@@ -41,8 +40,7 @@ const adminManager = async function ([command, ...args],message,guildData,client
             if(guildData.guild.Admin.indexOf(message.mentions.members.first().id)==-1) return message.channel.send(`そのユーザーはリストに入っていません`);
             delete guildData.guild.Admin[guildData.guild.Admin.indexOf(message.mentions.members.first().id)];
             guildData.guild.Admin = guildData.guild.Admin.filter(Boolean);
-            fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8');
-            main.configReload("get");
+            fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"),'utf8')
             logger.info(`Remove admin {red}${message.mentions.members.first().user.tag}`);
             message.channel.send(`ユーザーを削除しました`);
             break;

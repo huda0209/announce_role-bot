@@ -11,16 +11,16 @@ main.js :MAIN  'MAIN CODE'
  -help.js  :module
  -admin.js  :module
  -announce_role_Manager.js  :module　<= this
+ -roleEmoji.js  :module
  
 ran by node.js
 
-2020-12-12
+2020-12-25
 
 */
 
 const fs = require('fs');
 const logger = require('../../util/logger');
-const main = require('../../../main');
 
 function arm_command_handler ([command, ...args], message, guildData, BOT_DATA, client){
 	const role_name = args[2];
@@ -65,7 +65,6 @@ async function role_Create (message, guildData, role_name, [command, ...args]) {
 	await (await message.guild.roles.fetch(role.id)).setPosition(position);
 	guildData.roles.push([role_name, role.id, EmojiID]);
 	fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"), 'utf8');
-	main.configReload("get");
 	message.channel.send(`${role.name}を作成しました。`);
 	logger.info(`created new role {green}${role.name}`);
 }
@@ -81,7 +80,6 @@ async function role_Delete (message, guildData, role_name){
 	delete guildData.roles[roleIndex];
 	guildData.roles = guildData.roles.filter(Boolean);
 	fs.writeFileSync('./config/guild/guild.json', JSON.stringify(guildData, null, "\t"), 'utf8');
-	main.configReload("get");
 	message.channel.send(`${role_name}を削除しました。`);
 	logger.info(`deleted role {red}${role_name}`);
 }

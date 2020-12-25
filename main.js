@@ -11,10 +11,11 @@ main.js :MAIN  'MAIN CODE'　<= this
  -help.js  :module
  -admin.js  :module
  -announce_role_Manager.js  :module
+ -roleEmoji.js  :module
  
 ran by node.js
 
-2020-12-12
+2020-12-25
 
 */
 

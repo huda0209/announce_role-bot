@@ -11,10 +11,11 @@ main.js :MAIN  'MAIN CODE'
  -help.js  :module
  -admin.js  :module
  -announce_role_Manager.js  :module
+ -roleEmoji.js  :module
  
 ran by node.js
 
-2020-10-27
+2020-12-25
 
 */
 const logger = require('./util/logger')
@@ -23,7 +24,7 @@ const announceRole = require('./command/announceRole.js');
 const help = require('./command/help.js');
 const admin = require('./command/admin/admin.js');
 const arm = require('./command/admin/announce_role_Manager')
-const main = require('../main')
+const configChecker = require('./util/config');
 
 
 
@@ -59,7 +60,7 @@ async function arb_command_handler([command, ...args],message,guildData,BOT_DATA
             break; 
 
         case "reload" :
-            main.configReload("get");
+            guildData = configChecker.getConfig();
             logger.info("config reloaded");
             message.channel.send("コンフィグを再読み込みしました。");
             break;
